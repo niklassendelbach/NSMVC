@@ -1,0 +1,63 @@
+﻿@model IEnumerable<NSMVC.Models.BookList>
+
+@{
+    ViewData["Title"] = "List of book loans";
+}
+
+<h1>List of book loans</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add new loan</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Return book</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReturned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <form asp-action="MarkReturned" method="post">
+                    <input type="button" class="done-checkbox btn btn-primary" value="Return"/>
+                    <input type="hidden" name="id" value="@item.BookListId" />
+                </form>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customers.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Books.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnAt)
+            </td>
+            <td>
+                @(item.IsReturned?"Yes":"No")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

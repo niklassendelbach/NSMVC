@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NSMVC.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<h1>Customers</h1>
+
+<p>
+    <a asp-action="CreateCustomer">Add new customer</a>
+</p>
+<form asp-action="GetCustomer">
+    <div class="form-group">
+        <label for="SearchString" class="control-label">Search for customer:</label>
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<hr />
+<a asp-action="GetCustomer">Remove filter</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                <a asp-action="EditCustomer" asp-route-id="@item.CustomerId">Edit</a> |
+                <a asp-action="DeleteCustomer" asp-route-id="@item.CustomerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
